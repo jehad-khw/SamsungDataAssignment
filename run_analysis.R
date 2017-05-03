@@ -1,3 +1,4 @@
+library(data.table)
 ##(1)check if "Samsung data" folder exists, if yes then choose it as workind directory, else it creates it
 if (length(grep("(Samsung data)$",getwd()))==0) {
   dir.create("Samsung data")
@@ -78,7 +79,7 @@ rm(mean_std_ft)#remove unneeded Objs
 ###### of each variable for each activity and each subject . #########################
 tidydata<-cbind(Subject, Y, X)
 tidydata<-data.table(tidydata)
-tidydata <- tidydata[, lapply(.sd, mean), by = 'subjectID,activity']
+tidydata <- tidydata[, lapply(.SD, mean), by = 'subjectID,activity']
 write.table(tidydata,"tidydata.txt",row.name=FALSE)
 ######################################################################################
 setwd("..")# set the working directory back
